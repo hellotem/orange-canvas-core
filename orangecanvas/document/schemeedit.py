@@ -214,7 +214,7 @@ class SchemeEditWidget(QWidget):
         self.__setupUi()
 
         # Edit menu for a main window menu bar.
-        self.__editMenu = QMenu(self.tr("&Edit"), self)
+        self.__editMenu = QMenu(self.tr("编辑"), self)
         self.__editMenu.addAction(self.__undoAction)
         self.__editMenu.addAction(self.__redoAction)
         self.__editMenu.addSeparator()
@@ -225,7 +225,7 @@ class SchemeEditWidget(QWidget):
         self.__editMenu.addAction(self.__selectAllAction)
 
         # Widget context menu
-        self.__widgetMenu = QMenu(self.tr("Widget"), self)
+        self.__widgetMenu = QMenu(self.tr("组件"), self)
         self.__widgetMenu.addAction(self.__openSelectedAction)
         self.__widgetMenu.addSeparator()
         self.__widgetMenu.addAction(self.__renameAction)
@@ -236,7 +236,7 @@ class SchemeEditWidget(QWidget):
         self.__widgetMenu.addAction(self.__helpAction)
 
         # Widget menu for a main window menu bar.
-        self.__menuBarWidgetMenu = QMenu(self.tr("&Widget"), self)
+        self.__menuBarWidgetMenu = QMenu(self.tr("组件"), self)
         self.__menuBarWidgetMenu.addAction(self.__openSelectedAction)
         self.__menuBarWidgetMenu.addSeparator()
         self.__menuBarWidgetMenu.addAction(self.__renameAction)
@@ -244,7 +244,7 @@ class SchemeEditWidget(QWidget):
         self.__menuBarWidgetMenu.addSeparator()
         self.__menuBarWidgetMenu.addAction(self.__helpAction)
 
-        self.__linkMenu = QMenu(self.tr("Link"), self)
+        self.__linkMenu = QMenu(self.tr("链接"), self)
         self.__linkMenu.addAction(self.__linkEnableAction)
         self.__linkMenu.addSeparator()
         self.__linkMenu.addAction(self.__nodeInsertAction)
@@ -256,23 +256,23 @@ class SchemeEditWidget(QWidget):
 
     def __setupActions(self):
         self.__cleanUpAction = QAction(
-            self.tr("Clean Up"), self,
+            self.tr("整理"), self,
             objectName="cleanup-action",
             shortcut=QKeySequence("Shift+A"),
-            toolTip=self.tr("Align widgets to a grid (Shift+A)"),
+            toolTip=self.tr("将组件对齐到网格(Shift+A)"),
             triggered=self.alignToGrid,
         )
 
         self.__newTextAnnotationAction = QAction(
-            self.tr("Text"), self,
+            self.tr("文本"), self,
             objectName="new-text-action",
-            toolTip=self.tr("Add a text annotation to the workflow."),
+            toolTip=self.tr("为工作流添加文本注释"),
             checkable=True,
             toggled=self.__toggleNewTextAnnotation,
         )
 
         # Create a font size menu for the new annotation action.
-        self.__fontMenu = QMenu("Font Size", self)
+        self.__fontMenu = QMenu("字体大小", self)
         self.__fontActionGroup = group = QActionGroup(
             self, triggered=self.__onFontSizeTriggered
         )
@@ -293,15 +293,15 @@ class SchemeEditWidget(QWidget):
         self.__newTextAnnotationAction.setMenu(self.__fontMenu)
 
         self.__newArrowAnnotationAction = QAction(
-            self.tr("Arrow"), self,
+            self.tr("箭头"), self,
             objectName="new-arrow-action",
-            toolTip=self.tr("Add a arrow annotation to the workflow."),
+            toolTip=self.tr("为工作流添加箭头注释"),
             checkable=True,
             toggled=self.__toggleNewArrowAnnotation,
         )
 
         # Create a color menu for the arrow annotation action
-        self.__arrowColorMenu = QMenu("Arrow Color",)
+        self.__arrowColorMenu = QMenu("箭头颜色",)
         self.__arrowColorActionGroup = group = QActionGroup(
             self, triggered=self.__onArrowColorTriggered
         )
@@ -340,23 +340,23 @@ class SchemeEditWidget(QWidget):
         self.__redoAction.setObjectName("redo-action")
 
         self.__selectAllAction = QAction(
-            self.tr("Select all"), self,
+            self.tr("全选"), self,
             objectName="select-all-action",
-            toolTip=self.tr("Select all items."),
+            toolTip=self.tr("选择所有项目"),
             triggered=self.selectAll,
             shortcut=QKeySequence.SelectAll
         )
         self.__openSelectedAction = QAction(
-            self.tr("Open"), self,
+            self.tr("打开"), self,
             objectName="open-action",
-            toolTip=self.tr("Open selected widget"),
+            toolTip=self.tr("打开选定的组件"),
             triggered=self.openSelected,
             enabled=False
         )
         self.__removeSelectedAction = QAction(
-            self.tr("Remove"), self,
+            self.tr("移除"), self,
             objectName="remove-selected",
-            toolTip=self.tr("Remove selected items"),
+            toolTip=self.tr("移除选定项目"),
             triggered=self.removeSelected,
             enabled=False
         )
@@ -368,9 +368,9 @@ class SchemeEditWidget(QWidget):
         self.__removeSelectedAction.setShortcuts(shortcuts)
 
         self.__renameAction = QAction(
-            self.tr("Rename"), self,
+            self.tr("重命名"), self,
             objectName="rename-action",
-            toolTip=self.tr("Rename selected widget"),
+            toolTip=self.tr("重命名选定的组件"),
             triggered=self.__onRenameAction,
             shortcut=QKeySequence(Qt.Key_F2),
             enabled=False
@@ -383,40 +383,40 @@ class SchemeEditWidget(QWidget):
             ])
 
         self.__helpAction = QAction(
-            self.tr("Help"), self,
+            self.tr("帮助"), self,
             objectName="help-action",
-            toolTip=self.tr("Show widget help"),
+            toolTip=self.tr("显示组件帮助"),
             triggered=self.__onHelpAction,
             shortcut=QKeySequence("F1"),
             enabled=False,
         )
         self.__linkEnableAction = QAction(
-            self.tr("Enabled"), self, objectName="link-enable-action",
+            self.tr("启用"), self, objectName="link-enable-action",
             triggered=self.__toggleLinkEnabled, checkable=True,
         )
 
         self.__linkRemoveAction = QAction(
-            self.tr("Remove"), self,
+            self.tr("移除"), self,
             objectName="link-remove-action",
             triggered=self.__linkRemove,
-            toolTip=self.tr("Remove link."),
+            toolTip=self.tr("移除链接"),
         )
 
         self.__nodeInsertAction = QAction(
-            self.tr("Insert Widget"), self,
+            self.tr("插入组件"), self,
             objectName="node-insert-action",
             triggered=self.__nodeInsert,
-            toolTip=self.tr("Insert widget."),
+            toolTip=self.tr("插入组件"),
         )
 
         self.__linkResetAction = QAction(
-            self.tr("Reset Signals"), self,
+            self.tr("重置信号"), self,
             objectName="link-reset-action",
             triggered=self.__linkReset,
         )
 
         self.__duplicateSelectedAction = QAction(
-            self.tr("Duplicate"), self,
+            self.tr("复制"), self,
             objectName="duplicate-action",
             enabled=False,
             shortcut=QKeySequence("Ctrl+D"),
@@ -424,7 +424,7 @@ class SchemeEditWidget(QWidget):
         )
 
         self.__copySelectedAction = QAction(
-            self.tr("Copy"), self,
+            self.tr("复制"), self,
             objectName="copy-action",
             enabled=False,
             shortcut=QKeySequence("Ctrl+C"),
@@ -432,7 +432,7 @@ class SchemeEditWidget(QWidget):
         )
 
         self.__pasteAction = QAction(
-            self.tr("Paste"), self,
+            self.tr("粘贴"), self,
             objectName="paste-action",
             enabled=clipboard_has_format(MimeTypeWorkflowFragment),
             shortcut=QKeySequence("Ctrl+V"),
@@ -468,8 +468,8 @@ class SchemeEditWidget(QWidget):
 
         #: Top 'Window Groups' action
         self.__windowGroupsAction = QAction(
-            self.tr("Window Groups"), self, objectName="window-groups-action",
-            toolTip="Manage preset widget groups"
+            self.tr("窗口分组"), self, objectName="window-groups-action",
+            toolTip="管理预设组件组"
         )
         #: Action group containing action for every window group
         self.__windowGroupsActionGroup = QActionGroup(
@@ -479,15 +479,15 @@ class SchemeEditWidget(QWidget):
             self.__activateWindowGroup
         )
         self.__saveWindowGroupAction = QAction(
-            self.tr("Save Window Group..."), self,
+            self.tr("保存窗口组..."), self,
             objectName="window-groups-save-action",
-            toolTip="Create and save a new window group."
+            toolTip="创建并保存新窗口组"
         )
         self.__saveWindowGroupAction.triggered.connect(self.__saveWindowGroup)
         self.__clearWindowGroupsAction = QAction(
-            self.tr("Delete All Groups"), self,
+            self.tr("删除所有组"), self,
             objectName="window-groups-clear-action",
-            toolTip="Delete all saved widget presets"
+            toolTip="删除所有已保存的组件预设"
         )
         self.__clearWindowGroupsAction.triggered.connect(
             self.__clearWindowGroups
@@ -504,7 +504,7 @@ class SchemeEditWidget(QWidget):
         # the counterpart to Control + Key_Up to raise the containing workflow
         # view (maybe move that shortcut here)
         self.__raiseWidgetsAction = QAction(
-            self.tr("Bring Widgets to Front"), self,
+            self.tr("将组件置前"), self,
             objectName="bring-widgets-to-front-action",
             shortcut=QKeySequence("Ctrl+Down"),
             shortcutContext=Qt.WindowShortcut,
@@ -1149,7 +1149,7 @@ class SchemeEditWidget(QWidget):
         if not selected:
             return
         scene = self.scene()
-        self.__undoStack.beginMacro(self.tr("Remove"))
+        self.__undoStack.beginMacro(self.tr("移除"))
         # order LinkItem removes before NodeItems; Removing NodeItems also
         # removes links so some links in selected could already be removed by
         # a preceding NodeItem remove
@@ -1200,7 +1200,7 @@ class SchemeEditWidget(QWidget):
         nodes = sorted(self.__scheme.nodes, key=attrgetter("position"))
 
         if nodes:
-            self.__undoStack.beginMacro(self.tr("Align To Grid"))
+            self.__undoStack.beginMacro(self.tr("对齐到网格"))
 
             for node in nodes:
                 x, y = node.position
@@ -1520,7 +1520,7 @@ class SchemeEditWidget(QWidget):
                 scheme = self.__scheme
                 assert scheme is not None
                 stack = self.undoStack()
-                stack.beginMacro(self.tr("Move"))
+                stack.beginMacro(self.tr("移动"))
                 for scheme_item, (old, new) in self.__itemsMoving.items():
                     if isinstance(scheme_item, SchemeNode):
                         command = commands.MoveNodeCommand(
@@ -1756,14 +1756,14 @@ class SchemeEditWidget(QWidget):
         self.__copySelectedAction.setEnabled(bool(nodes))
 
         if len(nodes) > 1:
-            self.__openSelectedAction.setText(self.tr("Open All"))
+            self.__openSelectedAction.setText(self.tr("全部打开"))
         else:
-            self.__openSelectedAction.setText(self.tr("Open"))
+            self.__openSelectedAction.setText(self.tr("打开"))
 
         if len(nodes) + len(annotations) + len(links) > 1:
-            self.__removeSelectedAction.setText(self.tr("Remove All"))
+            self.__removeSelectedAction.setText(self.tr("全部移除"))
         else:
-            self.__removeSelectedAction.setText(self.tr("Remove"))
+            self.__removeSelectedAction.setText(self.tr("移除"))
 
         focus = self.focusNode()
         if focus is not None:
@@ -1992,7 +1992,7 @@ class SchemeEditWidget(QWidget):
 
         if not handled:
             message_information(
-                self.tr("Sorry there is no documentation available for "
+                self.tr("抱歉,该组件没有文档"
                         "this widget."),
                 parent=self)
 
@@ -2308,7 +2308,7 @@ class SchemeEditWidget(QWidget):
         items = [g.name for g in presets]
         default = [i for i, g in enumerate(presets) if g.default]
         dlg = SaveWindowGroup(
-            self, windowTitle="Save Group as...")
+            self, windowTitle="将组另存为...")
         dlg.setWindowModality(Qt.ApplicationModal)
         dlg.setItems(items)
         if default:
@@ -2335,9 +2335,9 @@ class SchemeEditWidget(QWidget):
                     g.default = False
 
             if idx == -1:
-                text = "Store Window Group"
+                text = "存储窗口组"
             else:
-                text = "Update Window Group"
+                text = "更新窗口组"
 
             self.__undoStack.push(
                 commands.SetWindowGroupPresets(workflow, newpresets, text=text)
@@ -2360,7 +2360,7 @@ class SchemeEditWidget(QWidget):
             return
         self.__undoStack.push(
             commands.SetWindowGroupPresets(
-                workflow, [], text="Delete All Window Groups")
+                workflow, [], text="删除所有窗口组")
         )
 
     def __raiseToFont(self):
@@ -2412,12 +2412,12 @@ class SaveWindowGroup(QDialog):
         )
         cb.currentIndexChanged.connect(self.__currentIndexChanged)
         # default text if no items are present
-        cb.setEditText(self.tr("Window Group 1"))
+        cb.setEditText(self.tr("窗口组1"))
         cb.lineEdit().selectAll()
-        form.addRow(self.tr("Save As:"), cb)
+        form.addRow(self.tr("另存为"), cb)
         self._checkbox = check = QCheckBox(
-            self.tr("Use as default"),
-            toolTip="Automatically use this preset when opening the workflow."
+            self.tr("使用为默认"),
+            toolTip="打开工作流时自动使用此预设"
         )
         form.setWidget(1, QFormLayout.FieldRole, check)
         bb = QDialogButtonBox(
@@ -2428,8 +2428,8 @@ class SaveWindowGroup(QDialog):
         layout.setSizeConstraint(QVBoxLayout.SetFixedSize)
         self.setLayout(layout)
         self.setWhatsThis(
-            "Save the current open widgets' window arrangement to the "
-            "workflow view presets."
+            "将当前打开的组件窗口布局"
+            "保存到工作流视图预设"
         )
         cb.setFocus(Qt.NoFocusReason)
 
@@ -2449,17 +2449,17 @@ class SaveWindowGroup(QDialog):
             return
         # Ask for overwrite confirmation
         mb = QMessageBox(
-            self, windowTitle=self.tr("Confirm Overwrite"),
+            self, windowTitle=self.tr("确认覆盖"),
             icon=QMessageBox.Question,
             standardButtons=QMessageBox.Yes | QMessageBox.Cancel,
-            text=self.tr("The window group '{}' already exists. Do you want " +
-                         "to replace it?").format(text),
+            text=self.tr("窗口组'{}'已存在,您要" +
+                         "替换它吗?").format(text),
         )
         mb.setDefaultButton(QMessageBox.Yes)
         mb.setEscapeButton(QMessageBox.Cancel)
         mb.setWindowModality(Qt.WindowModal)
         button = mb.button(QMessageBox.Yes)
-        button.setText(self.tr("Replace"))
+        button.setText(self.tr("替换"))
 
         def on_finished(status):  # type: (int) -> None
             if status == QMessageBox.Yes:

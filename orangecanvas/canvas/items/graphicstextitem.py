@@ -245,14 +245,14 @@ def createStandardContextMenu(
     menu.setAttribute(Qt.WA_DeleteOnClose)
     if flags & Qt.TextEditable:
         addAction(
-            menu, "&Undo", doc.undo,
+            menu, "撤销", doc.undo,
             shortcut=QKeySequence.Undo,
             enabled=doc.isUndoAvailable(),
             objectName="edit-undo",
             icon="edit-undo",
         )
         addAction(
-            menu, "&Redo", doc.redo,
+            menu, "重做", doc.redo,
             shortcut=QKeySequence.Redo,
             enabled=doc.isRedoAvailable(),
             objectName="edit-redo",
@@ -260,7 +260,7 @@ def createStandardContextMenu(
         )
         menu.addSeparator()
         addAction(
-            menu, "Cu&t", cut,
+            menu, "剪切", cut,
             shortcut=QKeySequence.Cut,
             enabled=cursor.hasSelection(),
             objectName="edit-cut",
@@ -269,7 +269,7 @@ def createStandardContextMenu(
 
     if showTextSelectionActions:
         addAction(
-            menu, "&Copy", copy,
+            menu, "拷贝", copy,
             shortcut=QKeySequence.Copy,
             enabled=cursor.hasSelection(),
             objectName="edit-copy",
@@ -278,21 +278,21 @@ def createStandardContextMenu(
 
     if flags & (Qt.LinksAccessibleByMouse | Qt.LinksAccessibleByKeyboard):
         addAction(
-            menu, "Copy &Link Location", copyLinkLocation,
+            menu, "拷贝链接地点", copyLinkLocation,
             enabled=bool(link),
             objectName="link-copy",
         )
 
     if flags & Qt.TextEditable:
         addAction(
-            menu, "&Paste", paste,
+            menu, "粘贴", paste,
             shortcut=QKeySequence.Paste,
             enabled=canPaste(),
             objectName="edit-paste",
             icon="edit-paste",
         )
         addAction(
-            menu, "Delete", deleteSelected,
+            menu, "删除", deleteSelected,
             enabled=cursor.hasSelection(),
             objectName="edit-delete",
             icon="edit-delete",
@@ -300,7 +300,7 @@ def createStandardContextMenu(
 
     if showTextSelectionActions:
         addAction(
-            menu, "Select All", selectAll,
+            menu, "全选", selectAll,
             shortcut=QKeySequence.SelectAll,
             enabled=not doc.isEmpty(),
             objectName="select-all",

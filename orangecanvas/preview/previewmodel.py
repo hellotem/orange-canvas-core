@@ -93,12 +93,12 @@ class PreviewItem(QStandardItem):
         self.__name = ""
 
         if name is None:
-            name = "Untitled"
+            name = "未命名"
 
         self.setName(name)
 
         if description is None:
-            description = "No description."
+            description = "无描述"
         self.setDescription(description)
 
         if thumbnail is None:

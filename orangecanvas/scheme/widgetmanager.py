@@ -271,16 +271,16 @@ class WidgetManager(QObject):
 
         w.installEventFilter(self.__activation_monitor)
         raise_canvas = QAction(
-            self.tr("Raise Canvas to Front"), w,
+            self.tr("将画布置于顶层"), w,
             objectName="action-canvas-raise-canvas",
-            toolTip=self.tr("Raise containing canvas workflow window"),
+            toolTip=self.tr("将包含画布的工作流窗口置顶"),
             shortcut=QKeySequence("Ctrl+Up")
         )
         raise_canvas.triggered.connect(self.__on_activate_parent)
         raise_descendants = QAction(
-            self.tr("Raise Descendants"), w,
+            self.tr("提升后代"), w,
             objectName="action-canvas-raise-descendants",
-            toolTip=self.tr("Raise all immediate descendants of this node"),
+            toolTip=self.tr("提升该节点的所有直接后代"),
             shortcut=QKeySequence("Ctrl+Shift+Right"),
             enabled=False,
         )
@@ -288,9 +288,9 @@ class WidgetManager(QObject):
             partial(self.__on_raise_descendants, node)
         )
         raise_ancestors = QAction(
-            self.tr("Raise Ancestors"), w,
+            self.tr("提升祖先"), w,
             objectName="action-canvas-raise-ancestors",
-            toolTip=self.tr("Raise all immediate ancestors of this node"),
+            toolTip=self.tr("提升该节点的所有直接祖先"),
             shortcut=QKeySequence("Ctrl+Shift+Left"),
             enabled=False,
         )

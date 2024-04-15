@@ -38,7 +38,7 @@ class CanvasView(QGraphicsView):
         self.__effectiveZoomLevel = 100
 
         self.__zoomInAction = QAction(
-            self.tr("Zoom in"), self, objectName="action-zoom-in",
+            self.tr("放大"), self, objectName="action-zoom-in",
             triggered=self.zoomIn,
         )
         ctrl = "Cmd" if sys.platform == "darwin" else "Ctrl"
@@ -47,12 +47,12 @@ class CanvasView(QGraphicsView):
             QKeySequence(ctrl + "+=")]  # if users forget to press Shift on us keyboards
         )
         self.__zoomOutAction = QAction(
-            self.tr("Zoom out"), self, objectName="action-zoom-out",
+            self.tr("缩小"), self, objectName="action-zoom-out",
             shortcut=QKeySequence.ZoomOut,
             triggered=self.zoomOut
         )
         self.__zoomResetAction = QAction(
-            self.tr("Reset Zoom"), self, objectName="action-zoom-reset",
+            self.tr("重置缩放"), self, objectName="action-zoom-reset",
             triggered=self.zoomReset,
             shortcut=QKeySequence("Ctrl+0")
         )

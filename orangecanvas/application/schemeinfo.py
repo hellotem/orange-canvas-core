@@ -33,14 +33,14 @@ class SchemeInfoEdit(QWidget):
         layout.setFieldGrowthPolicy(QFormLayout.ExpandingFieldsGrow)
 
         self.name_edit = LineEdit(self)
-        self.name_edit.setPlaceholderText(self.tr("untitled"))
+        self.name_edit.setPlaceholderText(self.tr("无标题"))
         self.name_edit.setSizePolicy(QSizePolicy.Expanding,
                                      QSizePolicy.Fixed)
         self.desc_edit = QTextEdit(self)
         self.desc_edit.setTabChangesFocus(True)
 
-        layout.addRow(self.tr("Title"), self.name_edit)
-        layout.addRow(self.tr("Description"), self.desc_edit)
+        layout.addRow(self.tr("标题"), self.name_edit)
+        layout.addRow(self.tr("描述"), self.desc_edit)
 
         self.setLayout(layout)
 
@@ -51,7 +51,7 @@ class SchemeInfoEdit(QWidget):
         """
         self.scheme = scheme
         if not scheme.title:
-            self.name_edit.setText(self.tr("untitled"))
+            self.name_edit.setText(self.tr("无标题"))
             self.name_edit.selectAll()
             self.__schemeIsUntitled = True
         else:
@@ -68,7 +68,7 @@ class SchemeInfoEdit(QWidget):
             return
 
         if self.__schemeIsUntitled and \
-            self.name_edit.text() == self.tr("untitled"):
+            self.name_edit.text() == self.tr("无标题"):
             # 'untitled' text was not changed
             name = ""
         else:
@@ -109,7 +109,7 @@ class SchemeInfoDialog(QDialog):
         self.editor.setSizePolicy(QSizePolicy.MinimumExpanding,
                                   QSizePolicy.MinimumExpanding)
 
-        heading = self.tr("Workflow Info")
+        heading = self.tr("工作流信息")
         heading = "<h3>{0}</h3>".format(heading)
         self.heading = QLabel(heading, self, objectName="heading")
 
@@ -129,7 +129,7 @@ class SchemeInfoDialog(QDialog):
         check_layout = QHBoxLayout()
         check_layout.setContentsMargins(20, 10, 20, 10)
         self.__showAtNewSchemeCheck = \
-            QCheckBox(self.tr("Show when I make a New Workflow."),
+            QCheckBox(self.tr("新建工作流时显示"),
                       self,
                       objectName="auto-show-check",
                       checked=False,
@@ -137,8 +137,8 @@ class SchemeInfoDialog(QDialog):
 
         check_layout.addWidget(self.__showAtNewSchemeCheck)
         check_layout.addWidget(
-               QLabel(self.tr("You can also edit Workflow Info later "
-                              "(File -> Workflow Info)."),
+               QLabel(self.tr("您也可以稍后编辑"
+                              "(文件->工作流信息)"),
                       self,
                       objectName="auto-show-info"),
                alignment=Qt.AlignRight)

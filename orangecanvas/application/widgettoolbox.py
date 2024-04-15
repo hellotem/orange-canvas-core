@@ -314,12 +314,12 @@ class WidgetToolBox(ToolBox):
         self.setSizePolicy(QSizePolicy.Fixed,
                            QSizePolicy.Expanding)
         action = QAction(
-            load_styled_svg_icon("Search.svg"), self.tr("Search"), self
+            load_styled_svg_icon("Search.svg"), self.tr("搜索"), self
         )
         self.__filterEdit = QLineEdit(
             objectName="filter-edit-line",
-            placeholderText=self.tr("Filter..."),
-            toolTip=self.tr("Filter/search the list of available widgets."),
+            placeholderText=self.tr("过滤..."),
+            toolTip=self.tr("筛选/搜索可用小部件列表。"),
             clearButtonEnabled=True,
         )
         self.__filterEdit.setAttribute(Qt.WA_MacShowFocusRect, False)
@@ -329,9 +329,9 @@ class WidgetToolBox(ToolBox):
         layout.setSpacing(1)
         layout.insertWidget(0, self.__filterEdit)
 
-        open_all = QAction(self.tr("Open all"), self)
+        open_all = QAction(self.tr("打开所有"), self)
         open_all.triggered.connect(self.openAllTabs)
-        close_all = QAction(self.tr("Close all"), self)
+        close_all = QAction(self.tr("关闭所有"), self)
         close_all.triggered.connect(self.closeAllTabs)
         self.addActions([open_all, close_all])
         self.setContextMenuPolicy(Qt.ActionsContextMenu)

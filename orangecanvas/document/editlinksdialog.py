@@ -378,7 +378,7 @@ class LinksEditWidget(QGraphicsWidget):
                     self.removeLink(s1, s2)
 
         line = LinkLineItem(self)
-        line.setToolTip(self.tr("Click to remove the link."))
+        line.setToolTip(self.tr("单击以移除链接"))
         source_anchor = self.sourceNodeWidget.anchor(output)
         sink_anchor = self.sinkNodeWidget.anchor(input)
 
@@ -520,12 +520,12 @@ class LinksEditWidget(QGraphicsWidget):
                isinstance(first_channel, InputSignal) and \
                compatible_channels(second_channel, first_channel):
                 anchor.setEnabled(True)
-                anchor.setToolTip("Click and drag to connect widgets!")
+                anchor.setToolTip("单击并拖动以连接组件！")
                 return
         if isinstance(first_channel, OutputSignal):
-            anchor.setToolTip("No compatible input channel.")
+            anchor.setToolTip("没有兼容的输入通道")
         else:
-            anchor.setToolTip("No compatible output channel.")
+            anchor.setToolTip("没有兼容的输出通道")
         anchor.setEnabled(False)
 
     def changeEvent(self, event: QEvent) -> None:

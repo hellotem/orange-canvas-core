@@ -454,9 +454,9 @@ def have_install_permissions():
 
 
 class Command(Enum):
-    Install = "Install"
-    Upgrade = "Upgrade"
-    Uninstall = "Uninstall"
+    Install = "安装"
+    Upgrade = "升级"
+    Uninstall = "卸载"
 
 
 Install = Command.Install
@@ -507,7 +507,7 @@ class Installer(QObject):
             if command == Install \
                     or (command == Upgrade and pkg.installable.force):
                 self.setStatusMessage(
-                    "Installing {}".format(pkg.installable.name))
+                    "正在安装 {}".format(pkg.installable.name))
                 if self.conda:
                     try:
                         self.conda.install(pkg.installable)
@@ -517,7 +517,7 @@ class Installer(QObject):
                     self.pip.install(pkg.installable)
             elif command == Upgrade:
                 self.setStatusMessage(
-                    "Upgrading {}".format(pkg.installable.name))
+                    "正在升级 {}".format(pkg.installable.name))
                 if self.conda:
                     try:
                         self.conda.upgrade(pkg.installable)
@@ -527,7 +527,7 @@ class Installer(QObject):
                     self.pip.upgrade(pkg.installable)
             elif command == Uninstall:
                 self.setStatusMessage(
-                    "Uninstalling {}".format(pkg.local.name))
+                    "正在卸载 {}".format(pkg.local.name))
                 if self.conda:
                     try:
                         self.conda.uninstall(pkg.local)
@@ -537,7 +537,7 @@ class Installer(QObject):
                     self.pip.uninstall(pkg.local)
         except CommandFailed as ex:
             self.error.emit(
-                "Command failed: python {}".format(ex.cmd),
+                "命令失败: python {}".format(ex.cmd),
                 pkg, ex.retcode, ex.output
             )
             return

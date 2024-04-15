@@ -373,10 +373,10 @@ def message_critical(text, title=None, informative_text=None, details=None,
     """Show a critical message.
     """
     if not text:
-        text = "An unexpected error occurred."
+        text = "发生意外错误"
 
     if title is None:
-        title = "Error"
+        title = "错误"
 
     return message(QMessageBox.Critical, text, title, informative_text,
                    details, buttons, default_button, exc_info, parent)
@@ -389,13 +389,13 @@ def message_warning(text, title=None, informative_text=None, details=None,
     """
     if not text:
         import random
-        text_candidates = ["Death could come at any moment.",
-                           "Murphy lurks about. Remember to save frequently."
+        text_candidates = ["随时可能出现严重错误",
+                           "请记住经常保存"
                            ]
         text = random.choice(text_candidates)
 
     if title is not None:
-        title = "Warning"
+        title = "警告"
 
     return message(QMessageBox.Warning, text, title, informative_text,
                    details, buttons, default_button, exc_info, parent)
@@ -407,9 +407,9 @@ def message_information(text, title=None, informative_text=None, details=None,
     """Show an information message box.
     """
     if title is None:
-        title = "Information"
+        title = "信息"
     if not text:
-        text = "I am not a number."
+        text = "我不是数字"
 
     return message(QMessageBox.Information, text, title, informative_text,
                    details, buttons, default_button, exc_info, parent)
@@ -431,9 +431,9 @@ def message(icon, text, title=None, informative_text=None, details=None,
     """Show a message helper function.
     """
     if title is None:
-        title = "Message"
+        title = "消息"
     if not text:
-        text = "I am neither a postman nor a doctor."
+        text = "我既不是邮递员也不是医生"
 
     if buttons is None:
         buttons = QMessageBox.Ok

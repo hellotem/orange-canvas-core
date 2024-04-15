@@ -565,7 +565,7 @@ class SearchWidget(LineEdit):
 
     def __setupUi(self):
         icon = QIcon(load_styled_svg_icon("Search.svg"))
-        action = QAction(icon, self.tr("Search"), self)
+        action = QAction(icon, self.tr("搜索"), self)
         self.setAction(action, LineEdit.LeftPosition)
 
         button = self.button(SearchWidget.LeftPosition)
@@ -1286,7 +1286,7 @@ class QuickMenu(FramelessWindow):
 
         self.__search = SearchWidget(self, objectName="search-line")
         self.__search.setPlaceholderText(
-            self.tr("Search for a widget...")
+            self.tr("搜索组件...")
         )
         self.__search.setChecked(True)
 
@@ -1323,7 +1323,7 @@ class QuickMenu(FramelessWindow):
             # Don't show the focus frame because it expands into the tab bar.
             view.setAttribute(Qt.WA_MacShowFocusRect, False)
 
-        i = self.addPage(self.tr("Quick Search"), self.__suggestPage)
+        i = self.addPage(self.tr("快速搜索"), self.__suggestPage)
         button = self.__pages.tabButton(i)
         button.setVisible(False)
 

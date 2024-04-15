@@ -95,11 +95,11 @@ class ActionItem(QStandardItem):
             state = model.data(modelindex, Qt.CheckStateRole)
             flags = model.flags(modelindex)
             if flags & Qt.ItemIsUserTristate and state == Qt.Checked:
-                return "Update"
+                return "更新"
             elif isinstance(item, Available) and state == Qt.Checked:
-                return "Install"
+                return "安装"
             elif isinstance(item, Installed) and state == Qt.Unchecked:
-                return "Uninstall"
+                return "卸载"
             else:
                 return ""
         elif role == DetailedText:
@@ -356,11 +356,11 @@ class AddonManagerDialog(QDialog):
 
         self.__search = QLineEdit(
             objectName="filter-edit",
-            placeholderText=self.tr("Filter...")
+            placeholderText=self.tr("过滤")
         )
         self.__addmore = QPushButton(
-            self.tr("Add more..."),
-            toolTip=self.tr("Add an add-on not listed below"),
+            self.tr("添加"),
+            toolTip=self.tr("添加没有显示的插件"),
             autoDefault=False
         )
         self.__view = view = QTreeView(
@@ -503,7 +503,7 @@ class AddonManagerDialog(QDialog):
         self.show()
         progress.show()
         progress.setLabelText(
-            self.tr("Retrieving package list")
+            self.tr("获取安装包列表")
         )
         self.__f_pypi_addons = self.__executor.submit(
             lambda config=config: (config, list_available_versions(config)),
@@ -522,11 +522,11 @@ class AddonManagerDialog(QDialog):
         def network_warning(exc):
             etype, tb = type(exc), exc.__traceback__
             log.error(
-                "Error fetching package list",
+                "获取包列表错误",
                 exc_info=(etype, exc, tb)
             )
             message_warning(
-                "There's an issue with the internet connection.",
+                "网络链接问题",
                 title="Error",
                 informative_text=
                     "Please check you are connected to the internet.\n\n"
@@ -653,7 +653,7 @@ class AddonManagerDialog(QDialog):
             qinvoke(self.__on_add_query_finish, context=self)
         )
         progress = self.progressDialog()
-        progress.setLabelText("Running query")
+        progress.setLabelText("运行查询")
         progress.setMinimumDuration(1000)
         # make sure self is also visible, when progress dialog is, so it is
         # clear from where it came.
@@ -707,7 +707,7 @@ class AddonManagerDialog(QDialog):
 
     def __run_add_package_dialog(self):
         self.__add_package_by_name_dialog = dlg = QDialog(
-            self, windowTitle="Add add-on by name",
+            self, windowTitle="根据名字添加组件",
         )
         dlg.setAttribute(Qt.WA_DeleteOnClose)
 
@@ -715,8 +715,8 @@ class AddonManagerDialog(QDialog):
         form = QFormLayout()
         form.setContentsMargins(0, 0, 0, 0)
         nameentry = QLineEdit(
-            placeholderText="Package name",
-            toolTip="Enter a package name as displayed on "
+            placeholderText="软件包名称",
+            toolTip="根据显示输入软件包名称"
                     "PyPI (capitalization is not important)")
         nameentry.setMinimumWidth(250)
         form.addRow("Name:", nameentry)
@@ -726,7 +726,7 @@ class AddonManagerDialog(QDialog):
         )
         okb = buttons.button(QDialogButtonBox.Ok)
         okb.setEnabled(False)
-        okb.setText("Add")
+        okb.setText("添加")
 
         def changed(name):
             okb.setEnabled(bool(name))
@@ -746,7 +746,7 @@ class AddonManagerDialog(QDialog):
 
     @Slot(str, str)
     def __show_error_for_query(self, text, error_details):
-        message_error(text, title="Error", details=error_details)
+        message_error(text, title="错误", details=error_details)
 
     @Slot(object)
     def __on_add_query_finish(self, f):
@@ -757,14 +757,14 @@ class AddonManagerDialog(QDialog):
         try:
             result = f.result()
         except Exception:
-            log.error("Query error:", exc_info=True)
-            error_text = "Failed to query package index"
+            log.error("查询错误", exc_info=True)
+            error_text = "查询包索引失败"
             error_details = traceback.format_exc()
         else:
             not_found = [r.queryname for r in result if r.installable is None]
             if not_found:
                 error_text = "".join([
-                    "The following packages were not found:<ul>",
+                    "以下包未找到:<ul>",
                     *["<li>{}<li/>".format(escape(n)) for n in not_found],
                     "<ul/>"
                 ])
@@ -781,9 +781,9 @@ class AddonManagerDialog(QDialog):
             self.__progress = QProgressDialog(
                 self,
                 minimum=0, maximum=0,
-                labelText=self.tr("Retrieving package list"),
+                labelText=self.tr("获取包列表"),
                 sizeGripEnabled=False,
-                windowTitle="Progress"
+                windowTitle="进度"
             )
             self.__progress.setWindowModality(Qt.WindowModal)
             self.__progress.hide()
@@ -873,11 +873,11 @@ class AddonManagerDialog(QDialog):
         if core_upgrade:
             icon = QMessageBox.Warning
             buttons = QMessageBox.Ok | QMessageBox.Cancel
-            title = "Warning"
-            text = "This action will upgrade some core packages:\n"
+            title = "警告"
+            text = "此操作将升级一些核心包:\n"
             text += "\n".join(sorted(core_upgrade))
             msg_box = QMessageBox(icon, title, text, buttons, self)
-            msg_box.setInformativeText("Do you want to continue?")
+            msg_box.setInformativeText("是否需要继续")
             msg_box.setDefaultButton(QMessageBox.Ok)
             if msg_box.exec() != QMessageBox.Ok:
                 steps = []
@@ -904,7 +904,7 @@ class AddonManagerDialog(QDialog):
 
             self.__installer.installStatusChanged.connect(progress.setLabelText)
             progress.show()
-            progress.setLabelText("Installing")
+            progress.setLabelText("安装中")
             self.__installer.start()
 
         else:
@@ -922,8 +922,8 @@ class AddonManagerDialog(QDialog):
     def __on_installer_error(self, command, pkg, retcode, output):
         self.__on_installer_finished_common()
         message_error(
-            "An error occurred while running a subprocess", title="Error",
-            informative_text="{} exited with non zero status.".format(command),
+            "运行子进程时出错", title="错误",
+            informative_text="{} 以非零状态退出".format(command),
             details="".join(output),
             parent=self
         )
@@ -936,14 +936,14 @@ class AddonManagerDialog(QDialog):
         def message_restart(parent):
             icon = QMessageBox.Information
             buttons = QMessageBox.Ok | QMessageBox.Cancel
-            title = 'Information'
-            text = ('{} needs to be restarted for the changes to take effect.'
+            title = '信息'
+            text = ('{}需要重新启动以使更改生效'
                     .format(name))
             msg_box = QMessageBox(icon, title, text, buttons, parent)
             msg_box.setDefaultButton(QMessageBox.Ok)
-            msg_box.setInformativeText('Press OK to restart {} now.'
+            msg_box.setInformativeText('按确定立即重启{}'
                                        .format(name))
-            msg_box.button(QMessageBox.Cancel).setText('Close later')
+            msg_box.button(QMessageBox.Cancel).setText('稍后关闭')
             return msg_box.exec()
 
         if QMessageBox.Ok == message_restart(self):
@@ -957,8 +957,8 @@ class AddonManagerDialog(QDialog):
                 if any(w.isVisible() for w in windows):  # if a window close was cancelled
                     QApplication.setQuitOnLastWindowClosed(quit_temp_val)
                     QMessageBox(
-                        text="Restart Cancelled",
-                        informativeText="Changes will be applied on {}'s next restart"
+                        text="重启已取消",
+                        informativeText="更改将在{}下次重启时应用"
                                         .format(name),
                         icon=QMessageBox.Information
                     ).exec()

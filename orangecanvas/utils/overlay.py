@@ -246,8 +246,8 @@ class NotificationMessageWidget(QWidget):
     _Button = namedtuple("_Button", ["button", "role", "stdbutton"])
 
     def __init__(self, parent=None, icon=QIcon(), title="", text="", wordWrap=False,
-                 textFormat=Qt.PlainText, standardButtons=NoButton, acceptLabel="Ok",
-                 rejectLabel="No", **kwargs):
+                 textFormat=Qt.PlainText, standardButtons=NoButton, acceptLabel="确定",
+                 rejectLabel="否", **kwargs):
         super().__init__(parent, **kwargs)
         self._title = title
         self._text = text
@@ -630,7 +630,7 @@ class NotificationWidget(QWidget):
 
     def __init__(self, parent, title="", text="", textFormat=Qt.AutoText,
                  icon=QIcon(), wordWrap=True,
-                 standardButtons=NoButton, acceptLabel="Ok", rejectLabel="No",  **kwargs):
+                 standardButtons=NoButton, acceptLabel="确定", rejectLabel="否",  **kwargs):
         super().__init__(parent, **kwargs)
 
         self._dismissMargin = 10

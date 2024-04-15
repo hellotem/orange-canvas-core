@@ -329,17 +329,17 @@ def tooltip_helper(desc):
         inputs = "".join(inputs_fmt.format(name=inp.name,
                                            class_name=type_str(inp.types))
                          for inp in desc.inputs)
-        tooltip.append("Inputs:<ul>{0}</ul>".format(inputs))
+        tooltip.append("输入:<ul>{0}</ul>".format(inputs))
     else:
-        tooltip.append("No inputs")
+        tooltip.append("无输入")
 
     if desc.outputs:
         outputs = "".join(inputs_fmt.format(name=out.name,
                                             class_name=type_str(out.types))
                           for out in desc.outputs)
-        tooltip.append("Outputs:<ul>{0}</ul>".format(outputs))
+        tooltip.append("输出:<ul>{0}</ul>".format(outputs))
     else:
-        tooltip.append("No outputs")
+        tooltip.append("无输出")
 
     return "<hr/>".join(tooltip)
 

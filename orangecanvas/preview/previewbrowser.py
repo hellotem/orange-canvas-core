@@ -257,7 +257,7 @@ class PreviewBrowser(QWidget):
             if description:
                 description = description
             else:
-                description = "No description."
+                description = "无描述"
 
             description = escape(description)
             description = description.replace("\n", "<br/>")
@@ -266,7 +266,7 @@ class PreviewBrowser(QWidget):
             if name:
                 name = name
             else:
-                name = "Untitled"
+                name = "未命名"
 
             name = escape(name)
             path = str(index.data(Qt.StatusTipRole))

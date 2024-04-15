@@ -130,7 +130,7 @@ class TextAnnotation(Annotation):
             self, editTriggers=GraphicsTextEdit.NoEditTriggers
         )
         self.__textItem.setOpenExternalLinks(True)
-        self.__textItem.setPlaceholderText(self.tr("Enter text here"))
+        self.__textItem.setPlaceholderText(self.tr("在此输入文本"))
         self.__textItem.setPos(2, 2)
         self.__textItem.setTextWidth(rect.width() - 4)
         self.__textItem.setTabChangesFocus(True)
@@ -402,7 +402,7 @@ class TextAnnotation(Annotation):
         # type: (QGraphicsSceneContextMenuEvent) -> None
         menu = QMenu(event.widget())
         menu.setAttribute(Qt.WA_DeleteOnClose)
-        formatmenu = menu.addMenu("Render as")
+        formatmenu = menu.addMenu("渲染为")
         group = QActionGroup(self)
 
         def makeaction(text, parent, data=None, **kwargs):
@@ -413,18 +413,18 @@ class TextAnnotation(Annotation):
             return action
 
         formatactions = [
-            makeaction("Plain Text", group, checkable=True,
-                       toolTip=self.tr("Render contents as plain text"),
+            makeaction("纯文本", group, checkable=True,
+                       toolTip=self.tr("将内容渲染为纯文本"),
                        data="text/plain"),
             makeaction("HTML", group, checkable=True,
-                       toolTip=self.tr("Render contents as HTML"),
+                       toolTip=self.tr("将内容渲染为HTML"),
                        data="text/html"),
             makeaction("RST", group, checkable=True,
-                       toolTip=self.tr("Render contents as RST "
-                                       "(reStructuredText)"),
+                       toolTip=self.tr("将内容渲染为RST"
+                                       "(重新结构化的文本)"),
                        data="text/rst"),
             makeaction("Markdown", group, checkable=True,
-                       toolTip=self.tr("Render contents as Markdown"),
+                       toolTip=self.tr("将内容渲染为Markdown"),
                        data="text/markdown")
         ]
         for action in formatactions:

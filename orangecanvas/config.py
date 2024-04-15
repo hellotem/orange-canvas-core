@@ -195,15 +195,15 @@ class Config:
     #: are defined in various contexts
     APPLICATION_URLS = {
         #: Submit a bug report action in the Help menu
-        "Bug Report": None,
+        "错误报告": None,
         #: A url quick tour/getting started url
-        "Quick Start": None,
+        "快速开始": None,
         #: An url to the full documentation
-        "Documentation": None,
+        "文档": None,
         #: Video screencast/tutorials
-        "Screencasts": None,
+        "投屏": None,
         #: Used for 'Submit Feedback' action in the help menu
-        "Feedback": None,
+        "反馈": None,
     }  # type: Dict[str, Optional[str]]
 
 
